@@ -9,10 +9,105 @@
 
 #+REVEAL_TRANS: none
 
-* This slide has a title
-  - Here is a bullet
-  - This is a longer bullet that goes the whole page
-  - Here is some path \(\sum_i \theta_i x_i\)
+* Joint work with...
+  - Dr. Alyson Wilson (NCSU, CNEC)
+  - Dr. Eric Laber (NCSU)
+  - Nick Kapur (NCSU)
+  - Dr. Robert Brigantic (PNNL)
+  - Dr. Samrat Chatterjee (PNNL)
+  - Casey Perkins (PNNL)
 
-* Another title
-  - another bullet
+* Motivating problems
+  - National security
+    - Domestic invasion
+    - Search and destroy missions
+  - Emergency response
+    - Law enforcement responding to a fleeing suspect
+  - Wildlife management
+    - Tracking poachers of endangered animals
+
+* Pursuit and Evasion
+  - Formalize the search as evolving over a network of locations
+  - All players move in discrete time
+  - Possible objectives
+    1. Evader tries to reach goal and pursuers try to stop the evader
+    2. Pursuers try to catch evader and game continues until capture
+
+* Pursuit and Evasion Demo
+  [[./figures/animation.gif]]
+
+* Game Setup
+  - \(d\) pursuers
+  - 1 evader
+  - \(\lbrace 1, \ldots, L \rbrace\) nodes in the network
+  - Order of events
+    1. Pursuers gather and share state information
+    2. Pursuers move to new locations
+    3. Evader responds by moving to a new location
+  - Game terminates when the evader has been caught or a finite time
+    horizon has been reached
+    - The evader is caught if adjacent to at least one pursuer
+    - Could be terminated after evader completes objective
+
+* Pursuers
+  - *Goal*: Minimize expected time to capture
+  - State information available to all pursuers at each time point
+    - Locations of all pursuers
+    - Indicator for whether or not evader has been caught
+    - Information from informants and reliability of the source
+      - Reliable, deceitful, noisy
+    - Assume complete communication
+  - New Locations are restricted to a feasible set
+    - E.g., can only move to adjacent locations
+  - An action is a set of new locations for each agent
+
+* Evader
+  - *Goal*: Avoid being caught by pursuers
+  - Only one evader
+  - Movements restricted to feasible set (e.g., adjacent locations)
+
+* Timeline
+  [[./figures/timeline.png]]
+
+* Player Strategies
+  - Pursuers
+    - Define \(H^t\) to be all current and past state information at
+      time \(t\)
+    - \(R^t\): Reward for the pursuers at time \(t\)
+    - \(\pi = \lbrace \pi^0,\ldots,\pi^{T-1}\rbrace\): Strategy for
+      all \(d\) pursuers
+      - \(\pi^t\): Maps \(H^t\) to the set of feasible next locations
+  - Evader:
+    - \(\psi = \lbrace \psi^0, \ldots, \psi^{T-1}\rbrace\): Strategy
+      for the evader
+    - \(\psi^t\): Maps current location to the set of feasible next
+      locations
+
+* Optimal Pursuer Strategies
+  - Value of the pursuer strategy \(\pi\) assuming evader follows
+    \(\psi\) \[V(\pi; \psi) \triangleq \mathbb{E}^{\pi, \psi}\left(
+    \sum_{t=1}^T R^t\right) \] where \(\mathbb{E}^{\pi, \psi}\)
+    denotes the expectation if pursuers follow \(\pi\) and the evader
+    follows \(\psi\)
+  - Define \(G^t_\psi(\cdot | h^t)\) to be the posterior distribution
+    of the evader's location given \(H^t = h^t\) and the evader is
+    following \(\psi\).
+  - For any \(\pi\) \(\psi\), there exists a pursuer strategy
+    \(\widetilde{\pi}\) depending on \(H^t\) through the current state
+    and \(G^t_\psi(\cdot | H^t)\) such that \(V(\widetilde{\pi}, \psi)
+    \ge V(\pi; \psi)\)
+
+* Thompson Sampling
+  [[./figures/thompson_sampling.png]]
+
+* Estimating the Optimal Pursuer Strategy
+
+* Heuristic Strategy
+
+* Simulation Experiment Setup
+
+* Simulation Experiment Results
+
+* Future Work
+
+* References
