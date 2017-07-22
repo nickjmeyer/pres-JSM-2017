@@ -32,24 +32,245 @@
 </section>
 
 <section>
-<section id="slide-org5011b7a">
-<h2 id="org5011b7a">This slide has a title</h2>
+<section id="slide-org4b2ae44">
+<h2 id="org4b2ae44">Joint work with&#x2026;</h2>
 <ul>
-<li>Here is a bullet</li>
-<li>This is a longer bullet that goes the whole page</li>
-<li>Here is some path \(\sum_i \theta_i x_i\)</li>
+<li>Dr. Alyson Wilson (NCSU, CNEC)</li>
+<li>Dr. Eric Laber (NCSU)</li>
+<li>Nick Kapur (NCSU)</li>
+<li>Dr. Robert Brigantic (PNNL)</li>
+<li>Dr. Samrat Chatterjee (PNNL)</li>
+<li>Casey Perkins (PNNL)</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-orgf8d8da6">
-<h2 id="orgf8d8da6">Another title</h2>
+<section id="slide-org5977c06">
+<h2 id="org5977c06">Motivating problems</h2>
 <ul>
-<li>another bullet</li>
+<li>National security
+<ul>
+<li>Domestic invasion</li>
+<li>Search and destroy missions</li>
+
+</ul></li>
+<li>Emergency response
+<ul>
+<li>Law enforcement responding to a fleeing suspect</li>
+
+</ul></li>
+<li>Wildlife management
+<ul>
+<li>Tracking poachers of endangered animals</li>
+
+</ul></li>
 
 </ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3c1546f">
+<h2 id="org3c1546f">Pursuit and Evasion</h2>
+<ul>
+<li>Formalize the search as evolving over a network of locations</li>
+<li>All players move in discrete time</li>
+<li>Possible objectives
+<ol>
+<li>Evader tries to reach goal and pursuers try to stop the evader</li>
+<li>Pursuers try to catch evader and game continues until capture</li>
+
+</ol></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org988be0e">
+<h2 id="org988be0e">Pursuit and Evasion Demo</h2>
+
+<div class="figure">
+<p><img src="./figures/animation.gif" alt="animation.gif" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org96b45ac">
+<h2 id="org96b45ac">Game Setup</h2>
+<ul>
+<li>\(d\) pursuers</li>
+<li>1 evader</li>
+<li>\(\lbrace 1, \ldots, L \rbrace\) nodes in the network</li>
+<li>Order of events
+<ol>
+<li>Pursuers gather and share state information</li>
+<li>Pursuers move to new locations</li>
+<li>Evader responds by moving to a new location</li>
+
+</ol></li>
+<li>Game terminates when the evader has been caught or a finite time
+horizon has been reached
+<ul>
+<li>The evader is caught if adjacent to at least one pursuer</li>
+<li>Could be terminated after evader completes objective</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orge6594b4">
+<h2 id="orge6594b4">Pursuers</h2>
+<ul>
+<li><b>Goal</b>: Minimize expected time to capture</li>
+<li>State information available to all pursuers at each time point
+<ul>
+<li>Locations of all pursuers</li>
+<li>Indicator for whether or not evader has been caught</li>
+<li>Information from informants and reliability of the source
+<ul>
+<li>Reliable, deceitful, noisy</li>
+
+</ul></li>
+<li>Assume complete communication</li>
+
+</ul></li>
+<li>New Locations are restricted to a feasible set
+<ul>
+<li>E.g., can only move to adjacent locations</li>
+
+</ul></li>
+<li>An action is a set of new locations for each agent</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org55f1dee">
+<h2 id="org55f1dee">Evader</h2>
+<ul>
+<li><b>Goal</b>: Avoid being caught by pursuers</li>
+<li>Only one evader</li>
+<li>Movements restricted to feasible set (e.g., adjacent locations)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org0b7c607">
+<h2 id="org0b7c607">Timeline</h2>
+
+<div class="figure">
+<p><img src="./figures/timeline.png" alt="timeline.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org916b59f">
+<h2 id="org916b59f">Player Strategies</h2>
+<ul>
+<li>Pursuers
+<ul>
+<li>Define \(H^t\) to be all current and past state information at
+time \(t\)</li>
+<li>\(R^t\): Reward for the pursuers at time \(t\)</li>
+<li>\(\pi = \lbrace \pi^0,\ldots,\pi^{T-1}\rbrace\): Strategy for
+all \(d\) pursuers
+<ul>
+<li>\(\pi^t\): Maps \(H^t\) to the set of feasible next locations</li>
+
+</ul></li>
+
+</ul></li>
+<li>Evader:
+<ul>
+<li>\(\psi = \lbrace \psi^0, \ldots, \psi^{T-1}\rbrace\): Strategy
+for the evader</li>
+<li>\(\psi^t\): Maps current location to the set of feasible next
+locations</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org8243719">
+<h2 id="org8243719">Optimal Pursuer Strategies</h2>
+<ul>
+<li>Value of the pursuer strategy \(\pi\) assuming evader follows
+\(\psi\) \[V(\pi; \psi) \triangleq \mathbb{E}^{\pi, \psi}\left(
+    \sum_{t=1}^T R^t\right) \] where \(\mathbb{E}^{\pi, \psi}\)
+denotes the expectation if pursuers follow \(\pi\) and the evader
+follows \(\psi\)</li>
+<li>Define \(G^t_\psi(\cdot | h^t)\) to be the posterior distribution
+of the evader's location given \(H^t = h^t\) and the evader is
+following \(\psi\).</li>
+<li>For any \(\pi\) \(\psi\), there exists a pursuer strategy
+\(\widetilde{\pi}\) depending on \(H^t\) through the current state
+and \(G^t_\psi(\cdot | H^t)\) such that \(V(\widetilde{\pi}, \psi)
+    \ge V(\pi; \psi)\)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org7eb69ed">
+<h2 id="org7eb69ed">Thompson Sampling</h2>
+
+<div class="figure">
+<p><img src="./figures/thompson_sampling.png" alt="thompson_sampling.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orga6e9cbd">
+<h2 id="orga6e9cbd">Estimating the Optimal Pursuer Strategy</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org3c38639">
+<h2 id="org3c38639">Heuristic Strategy</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org09d63b5">
+<h2 id="org09d63b5">Simulation Experiment Setup</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd9a3bbf">
+<h2 id="orgd9a3bbf">Simulation Experiment Results</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-orge635bc9">
+<h2 id="orge635bc9">Future Work</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org7fb15fa">
+<h2 id="org7fb15fa">References</h2>
 </section>
 </section>
 </div>
