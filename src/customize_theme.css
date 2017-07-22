@@ -1,22 +1,26 @@
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6,
+.reveal p,
+.reveal li{
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
 .reveal h1 {
-    font-family: Arial, Helvetica, sans-serif;
     text-transform: none;
     font-size: 1.5em;
 }
 
 .reveal h2 {
-    border-bottom: 0.05em solid;
-    padding-bottom: 0.5em;
     font-size: 1.35em;
 }
 
 .reveal #sec-title-slide h1 {
     border-bottom: 0.05em solid;
     padding-bottom: 0.5em;
-}
-
-.reveal #sec-title-slide h2 {
-    border-bottom-style: none;
 }
 
 .reveal .figure {
