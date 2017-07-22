@@ -1,16 +1,18 @@
 #+title: Cooperative search strategies for pursuing adversarial evaders
 #+author: Nicholas J. Meyer
 
-#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
-
-#+REVEAL_THEME: black
+#+REVEAL_THEME: simple
 
 #+REVEAL_EXTRA_CSS: customize_theme.css
 
 #+OPTIONS: toc:nil num:nil timestamp:nil
 
-* Title
-  - here is a bullet
+#+REVEAL_TRANS: none
+
+* This slide has a title
+  - Here is a bullet
+  - This is a longer bullet that goes the whole page
+  - Here is some path \(\sum_i \theta_i x_i\)
 
 * Another title
   - another bullet

@@ -1,5 +1,6 @@
 .reveal h1 {
-    font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: none;
 }
 
 .reveal #sec-title-slide h1 {
@@ -7,9 +8,12 @@
     padding-bottom: 0.5em;
 }
 
-.reveal #sec-title-slide h2 {
-    font-size: 1.75em;
-    color: #CACACA;
+.reveal h1 {
+    font-size: 1.5em;
+}
+
+.reveal h2 {
+    font-size: 1.5em;
 }
 
 .reveal h1,
