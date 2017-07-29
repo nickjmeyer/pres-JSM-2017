@@ -166,7 +166,12 @@
 
 * References
 
-* Thank you for listening!
+* Final Slide
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: final-slide
+  :END:
   #+REVEAL_HTML: <div style="text-align: center; padding: 15%">
+  Thank you for listening!
+
   Questions?
   #+REVEAL_HTML: </div>

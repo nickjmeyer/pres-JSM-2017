@@ -33,6 +33,10 @@
     margin: 0 auto;
 }
 
+.reveal .final-slide h2 {
+    visibility: hidden;
+}
+
 .reveal h1,
 .reveal h2,
 .reveal h3,
