@@ -1,6 +1,8 @@
 #+title: Cooperative search strategies for pursuing adversarial evaders
 #+author: Nicholas J. Meyer
 
+#+STARTUP: showeverything
+
 #+REVEAL_THEME: simple
 
 #+REVEAL_EXTRA_CSS: customize_theme.css
@@ -9,7 +11,7 @@
 
 #+REVEAL_TRANS: none
 
-* Joint work with...
+* Joint work with:
   - Dr. Alyson Wilson (NCSU, CNEC)
   - Dr. Eric Laber (NCSU)
   - Nick Kapur (NCSU)
@@ -100,14 +102,71 @@
 * Thompson Sampling
   [[./figures/thompson_sampling.png]]
 
-* Estimating the Optimal Pursuer Strategy
+* Estimating Optimal Pursuer Strategy
+
+  - Q-function is a sufficient quantity for making optimal decisions
+    \[Q^{*, \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) = \mathbb{E}^{*,
+    \psi}\left[\sum_{v\ge 0} \gamma^v R^{t + v} \bigg| \boldsymbol{W}^t =
+    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
+    \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+
+  - Under the Markov assumption \[Q^{*, \psi}(\boldsymbol{w},
+    \boldsymbol{J}, \boldsymbol{a}) = \mathbb{E}^{*, \psi}\left[R^t +
+    \gamma \max_{\boldsymbol{a}'} Q^{*, \psi}(\boldsymbol{W}^{t+1},
+    \boldsymbol{J}^{t+1}, \boldsymbol{a}') \bigg| \boldsymbol{W}^t =
+    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
+    \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+
+  - Can write using a \(n\)-step roll out
+    \[Q^{*, \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) =
+    \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
+    \gamma^{n} \max_{\boldsymbol{a}'} Q^{*,
+    \psi}(\boldsymbol{W}^{t+n}, \boldsymbol{J}^{t+n}, \boldsymbol{a}')
+    \bigg| \boldsymbol{W}^t = \boldsymbol{w}, \boldsymbol{J}^t =
+    \boldsymbol{J}, \boldsymbol{A}^t = \boldsymbol{a}\right]\]
 
 * Heuristic Strategy
+  - Approximate Q-function using a heuristic strategy \[Q^{*,
+    \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) =
+    \mathbb{E}^{*, \psi}\left[\sum_{v\ge 0} R^t + \gamma
+    \max_{\boldsymbol{a}'} Q^{\pi_H, \psi}(\boldsymbol{W}^{t+1},
+    \boldsymbol{J}^{t+1}, \boldsymbol{a}') \bigg| \boldsymbol{W}^t =
+    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
+    \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+
+  - Heuristic strategy \(\pi_H\) is a variant of the /global-max/
+    strategy
+    - Find locations of the posterior with highest coverage
+    - Select actions that move the pursuers closest to these locations
 
 * Simulation Experiment Setup
+  #+REVEAL_HTML: <div class="columns">
+
+  #+REVEAL_HTML: <div class="column" style="padding: 2em 0">
+  - Number of pursuers: 1, 2, 3
+  - Number of steps before heuristic: 0, 1, 2
+  - Game ends when evader reaches the goal state
+  - 50 Replications
+  #+REVEAL_HTML: </div>
+
+  #+REVEAL_HTML: <div class="column">
+  [[./figures/sim_setup.png]]
+  #+REVEAL_HTML: </div>
+
+  #+REVEAL_HTML: </div>
 
 * Simulation Experiment Results
+  #+attr_html: :width 55%
+  [[./figures/prob_capture.png]]
 
 * Future Work
+  - Estimate prior over evader behaviors using Nash process prior
+  - Intelligent evader that adapts over time
+  - Prioritization of capture zones
 
 * References
+
+* Thank you for listening!
+  #+REVEAL_HTML: <div style="text-align: center; padding: 15%">
+  Questions?
+  #+REVEAL_HTML: </div>

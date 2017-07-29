@@ -32,8 +32,8 @@
 </section>
 
 <section>
-<section id="slide-org4b2ae44">
-<h2 id="org4b2ae44">Joint work with&#x2026;</h2>
+<section id="slide-orga5f1061">
+<h2 id="orga5f1061">Joint work with:</h2>
 <ul>
 <li>Dr. Alyson Wilson (NCSU, CNEC)</li>
 <li>Dr. Eric Laber (NCSU)</li>
@@ -47,8 +47,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org5977c06">
-<h2 id="org5977c06">Motivating problems</h2>
+<section id="slide-orgf9c1cf3">
+<h2 id="orgf9c1cf3">Motivating problems</h2>
 <ul>
 <li>National security
 <ul>
@@ -72,8 +72,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org3c1546f">
-<h2 id="org3c1546f">Pursuit and Evasion</h2>
+<section id="slide-org4c2edfe">
+<h2 id="org4c2edfe">Pursuit and Evasion</h2>
 <ul>
 <li>Formalize the search as evolving over a network of locations</li>
 <li>All players move in discrete time</li>
@@ -89,8 +89,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org988be0e">
-<h2 id="org988be0e">Pursuit and Evasion Demo</h2>
+<section id="slide-orgb55b70a">
+<h2 id="orgb55b70a">Pursuit and Evasion Demo</h2>
 
 <div class="figure">
 <p><img src="./figures/animation.gif" alt="animation.gif" />
@@ -100,8 +100,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org96b45ac">
-<h2 id="org96b45ac">Game Setup</h2>
+<section id="slide-org2ef9255">
+<h2 id="org2ef9255">Game Setup</h2>
 <ul>
 <li>\(d\) pursuers</li>
 <li>1 evader</li>
@@ -126,8 +126,8 @@ horizon has been reached
 </section>
 </section>
 <section>
-<section id="slide-orge6594b4">
-<h2 id="orge6594b4">Pursuers</h2>
+<section id="slide-orge78aff0">
+<h2 id="orge78aff0">Pursuers</h2>
 <ul>
 <li><b>Goal</b>: Minimize expected time to capture</li>
 <li>State information available to all pursuers at each time point
@@ -154,8 +154,8 @@ horizon has been reached
 </section>
 </section>
 <section>
-<section id="slide-org55f1dee">
-<h2 id="org55f1dee">Evader</h2>
+<section id="slide-org19dfa4b">
+<h2 id="org19dfa4b">Evader</h2>
 <ul>
 <li><b>Goal</b>: Avoid being caught by pursuers</li>
 <li>Only one evader</li>
@@ -166,8 +166,8 @@ horizon has been reached
 </section>
 </section>
 <section>
-<section id="slide-org0b7c607">
-<h2 id="org0b7c607">Timeline</h2>
+<section id="slide-orgacd1f3a">
+<h2 id="orgacd1f3a">Timeline</h2>
 
 <div class="figure">
 <p><img src="./figures/timeline.png" alt="timeline.png" />
@@ -177,8 +177,8 @@ horizon has been reached
 </section>
 </section>
 <section>
-<section id="slide-org916b59f">
-<h2 id="org916b59f">Player Strategies</h2>
+<section id="slide-org75900ae">
+<h2 id="org75900ae">Player Strategies</h2>
 <ul>
 <li>Pursuers
 <ul>
@@ -207,8 +207,8 @@ locations</li>
 </section>
 </section>
 <section>
-<section id="slide-org8243719">
-<h2 id="org8243719">Optimal Pursuer Strategies</h2>
+<section id="slide-org8e9515b">
+<h2 id="org8e9515b">Optimal Pursuer Strategies</h2>
 <ul>
 <li>Value of the pursuer strategy \(\pi\) assuming evader follows
 \(\psi\) \[V(\pi; \psi) \triangleq \mathbb{E}^{\pi, \psi}\left(
@@ -228,8 +228,8 @@ and \(G^t_\psi(\cdot | H^t)\) such that \(V(\widetilde{\pi}, \psi)
 </section>
 </section>
 <section>
-<section id="slide-org7eb69ed">
-<h2 id="org7eb69ed">Thompson Sampling</h2>
+<section id="slide-org134939f">
+<h2 id="org134939f">Thompson Sampling</h2>
 
 <div class="figure">
 <p><img src="./figures/thompson_sampling.png" alt="thompson_sampling.png" />
@@ -239,38 +239,122 @@ and \(G^t_\psi(\cdot | H^t)\) such that \(V(\widetilde{\pi}, \psi)
 </section>
 </section>
 <section>
-<section id="slide-orga6e9cbd">
-<h2 id="orga6e9cbd">Estimating the Optimal Pursuer Strategy</h2>
+<section id="slide-orgbe5ae64">
+<h2 id="orgbe5ae64">Estimating Optimal Pursuer Strategy</h2>
+<ul>
+<li>Q-function is a sufficient quantity for making optimal decisions
+\[Q^{*, \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) = \mathbb{E}^{*,
+    \psi}\left[\sum_{v\ge 0} \gamma^v R^{t + v} \bigg| \boldsymbol{W}^t =
+    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
+    \boldsymbol{A}^t = \boldsymbol{a}\right]\]</li>
+
+<li>Under the Markov assumption \[Q^{*, \psi}(\boldsymbol{w},
+    \boldsymbol{J}, \boldsymbol{a}) = \mathbb{E}^{*, \psi}\left[R^t +
+    \gamma \max_{\boldsymbol{a}'} Q^{*, \psi}(\boldsymbol{W}^{t+1},
+    \boldsymbol{J}^{t+1}, \boldsymbol{a}') \bigg| \boldsymbol{W}^t =
+    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
+    \boldsymbol{A}^t = \boldsymbol{a}\right]\]</li>
+
+<li>Can write using a \(n\)-step roll out
+\[Q^{*, \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) =
+    \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
+    \gamma^{n} \max_{\boldsymbol{a}'} Q^{*,
+    \psi}(\boldsymbol{W}^{t+n}, \boldsymbol{J}^{t+n}, \boldsymbol{a}')
+    \bigg| \boldsymbol{W}^t = \boldsymbol{w}, \boldsymbol{J}^t =
+    \boldsymbol{J}, \boldsymbol{A}^t = \boldsymbol{a}\right]\]</li>
+
+</ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org3c38639">
-<h2 id="org3c38639">Heuristic Strategy</h2>
+<section id="slide-orgdef2282">
+<h2 id="orgdef2282">Heuristic Strategy</h2>
+<ul>
+<li>Approximate Q-function using a heuristic strategy \[Q^{*,
+    \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) =
+    \mathbb{E}^{*, \psi}\left[\sum_{v\ge 0} R^t + \gamma
+    \max_{\boldsymbol{a}'} Q^{\pi_H, \psi}(\boldsymbol{W}^{t+1},
+    \boldsymbol{J}^{t+1}, \boldsymbol{a}') \bigg| \boldsymbol{W}^t =
+    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
+    \boldsymbol{A}^t = \boldsymbol{a}\right]\]</li>
+
+<li>Heuristic strategy \(\pi_H\) is a variant of the <i>global-max</i>
+strategy
+<ul>
+<li>Find locations of the posterior with highest coverage</li>
+<li>Select actions that move the pursuers closest to these locations</li>
+
+</ul></li>
+
+</ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org09d63b5">
-<h2 id="org09d63b5">Simulation Experiment Setup</h2>
+<section id="slide-orge802021">
+<h2 id="orge802021">Simulation Experiment Setup</h2>
+<div class="columns">
+
+<div class="column" style="padding: 2em 0">
+<ul>
+<li>Number of pursuers: 1, 2, 3</li>
+<li>Number of steps before heuristic: 0, 1, 2</li>
+<li>Game ends when evader reaches the goal state</li>
+<li>50 Replications</li>
+
+</ul>
+</div>
+
+<div class="column">
+
+<div class="figure">
+<p><img src="./figures/sim_setup.png" alt="sim_setup.png" />
+</p>
+</div>
+</div>
+
+</div>
 
 </section>
 </section>
 <section>
-<section id="slide-orgd9a3bbf">
-<h2 id="orgd9a3bbf">Simulation Experiment Results</h2>
+<section id="slide-orga73f386">
+<h2 id="orga73f386">Simulation Experiment Results</h2>
+
+<div class="figure">
+<p><img src="./figures/prob_capture.png" alt="prob_capture.png" width="55%" />
+</p>
+</div>
 
 </section>
 </section>
 <section>
-<section id="slide-orge635bc9">
-<h2 id="orge635bc9">Future Work</h2>
+<section id="slide-orga259f68">
+<h2 id="orga259f68">Future Work</h2>
+<ul>
+<li>Estimate prior over evader behaviors using Nash process prior</li>
+<li>Intelligent evader that adapts over time</li>
+<li>Prioritization of capture zones</li>
+
+</ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org7fb15fa">
-<h2 id="org7fb15fa">References</h2>
+<section id="slide-orgf8d729a">
+<h2 id="orgf8d729a">References</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org2c28f66">
+<h2 id="org2c28f66">Thank you for listening!</h2>
+<div style="text-align: center; padding: 15%">
+<p>
+Questions?
+</p>
+</div>
 </section>
 </section>
 </div>

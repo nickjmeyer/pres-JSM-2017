@@ -27,6 +27,12 @@
     text-align: center;
 }
 
+.reveal .MathJax {
+    font-size: 0.8em;
+    text-align: center;
+    margin: 0 auto;
+}
+
 .reveal h1,
 .reveal h2,
 .reveal h3,
@@ -314,26 +320,34 @@
    font-weight: bold;
 }
 
+.reveal .slides section .columns {
+    display: flex;
+}
+
 .reveal .slides section .column {
-   position: fixed;
-   width: 48%;
-   top: 2.5em;
-   bottom: 0;
+    flex: 1;
 }
 
-.reveal .slides section .column1 {
-   left: 0;
-}
+/* .reveal .slides section .column { */
+/*    position: fixed; */
+/*    width: 48%; */
+/*    top: 2.5em; */
+/*    bottom: 0; */
+/* } */
 
-.reveal .slides section .column2 {
-   right: 0;
-}
+/* .reveal .slides section .column1 { */
+/*    left: 0; */
+/* } */
 
-.reveal .slides section .column img {
-   max-width: 95%;
-   max-height: 95%;
-   height: auto;
-}
+/* .reveal .slides section .column2 { */
+/*    right: 0; */
+/* } */
+
+/* .reveal .slides section .column img { */
+/*    max-width: 95%; */
+/*    max-height: 95%; */
+/*    height: auto; */
+/* } */
 
 .reveal .slides section .mediaOnly {
    position: absolute;
