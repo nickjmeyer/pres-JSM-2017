@@ -7,9 +7,12 @@
 
 #+REVEAL_EXTRA_CSS: customize_theme.css
 
-#+OPTIONS: toc:nil num:nil timestamp:nil
+#+OPTIONS: toc:nil num:nil timestamp:nil reveal_single_file:t
 
 #+REVEAL_TRANS: none
+
+#+BIBLIOGRAPHY: ./sources.bib
+
 
 * Joint work with:
   - Dr. Alyson Wilson (NCSU, CNEC)
@@ -46,10 +49,9 @@
     1. Pursuers gather and share state information
     2. Pursuers move to new locations
     3. Evader responds by moving to a new location
-  - Game terminates when the evader has been caught or a finite time
-    horizon has been reached
-    - The evader is caught if adjacent to at least one pursuer
-    - Could be terminated after evader completes objective
+  - Game terminates when the evader has reached the goal or has been caught
+    - The evader has been caught if adjacent to at least one pursuer
+    - Finite time horizon
 
 * Pursuers
   - *Goal*: Minimize expected time to capture
@@ -59,12 +61,12 @@
     - Information from informants and reliability of the source
       - Reliable, deceitful, noisy
     - Assume complete communication
-  - New Locations are restricted to a feasible set
+  - New locations are restricted to a feasible set
     - E.g., can only move to adjacent locations
   - An action is a set of new locations for each agent
 
 * Evader
-  - *Goal*: Avoid being caught by pursuers
+  - *Goal*: Reach goal without being caught by pursuers
   - Only one evader
   - Movements restricted to feasible set (e.g., adjacent locations)
 
@@ -75,6 +77,7 @@
   - Pursuers
     - Define \(H^t\) to be all current and past state information at
       time \(t\)
+    - \(W^t\): Locations of all pursuers at time \(t\)
     - \(R^t\): Reward for the pursuers at time \(t\)
     - \(\pi = \lbrace \pi^0,\ldots,\pi^{T-1}\rbrace\): Strategy for
       all \(d\) pursuers
@@ -88,15 +91,15 @@
 * Optimal Pursuer Strategies
   - Value of the pursuer strategy \(\pi\) assuming evader follows
     \(\psi\) \[V(\pi; \psi) \triangleq \mathbb{E}^{\pi, \psi}\left(
-    \sum_{t=1}^T R^t\right) \] where \(\mathbb{E}^{\pi, \psi}\)
+    \sum_{t\ge 0} \gamma^t R^t\right) \] where \(\mathbb{E}^{\pi, \psi}\)
     denotes the expectation if pursuers follow \(\pi\) and the evader
-    follows \(\psi\)
-  - Define \(G^t_\psi(\cdot | h^t)\) to be the posterior distribution
+    follows \(\psi\) and \(\gamma \in [0, 1)\) is the discount factor
+  - Define \(J^t_\psi(\cdot | h^t)\) to be the posterior distribution
     of the evader's location given \(H^t = h^t\) and the evader is
-    following \(\psi\).
-  - For any \(\pi\) \(\psi\), there exists a pursuer strategy
+    following \(\psi\)
+  - For any \(\pi\) and \(\psi\), there exists a pursuer strategy
     \(\widetilde{\pi}\) depending on \(H^t\) through the current state
-    and \(G^t_\psi(\cdot | H^t)\) such that \(V(\widetilde{\pi}, \psi)
+    and \(J^t_\psi(\cdot | H^t)\) such that \(V(\widetilde{\pi}, \psi)
     \ge V(\pi; \psi)\)
 
 * Thompson Sampling
@@ -120,19 +123,19 @@
   - Can write using a \(n\)-step roll out
     \[Q^{*, \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) =
     \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
-    \gamma^{n} \max_{\boldsymbol{a}'} Q^{*,
+    \gamma^n \max_{\boldsymbol{a}'} Q^{*,
     \psi}(\boldsymbol{W}^{t+n}, \boldsymbol{J}^{t+n}, \boldsymbol{a}')
     \bigg| \boldsymbol{W}^t = \boldsymbol{w}, \boldsymbol{J}^t =
     \boldsymbol{J}, \boldsymbol{A}^t = \boldsymbol{a}\right]\]
 
 * Heuristic Strategy
   - Approximate Q-function using a heuristic strategy \[Q^{*,
-    \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) =
-    \mathbb{E}^{*, \psi}\left[\sum_{v\ge 0} R^t + \gamma
-    \max_{\boldsymbol{a}'} Q^{\pi_H, \psi}(\boldsymbol{W}^{t+1},
-    \boldsymbol{J}^{t+1}, \boldsymbol{a}') \bigg| \boldsymbol{W}^t =
-    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
-    \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+    \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) \approx
+    \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
+    \gamma^{n} \max_{\boldsymbol{a}'} Q^{\pi_H,
+    \psi}(\boldsymbol{W}^{t+n}, \boldsymbol{J}^{t+n}, \boldsymbol{a}')
+    \bigg| \boldsymbol{W}^t = \boldsymbol{w}, \boldsymbol{J}^t =
+    \boldsymbol{J}, \boldsymbol{A}^t = \boldsymbol{a}\right]\]
 
   - Heuristic strategy \(\pi_H\) is a variant of the /global-max/
     strategy
@@ -142,11 +145,12 @@
 * Simulation Experiment Setup
   #+REVEAL_HTML: <div class="columns">
 
-  #+REVEAL_HTML: <div class="column" style="padding: 2em 0">
+  #+REVEAL_HTML: <div class="column" style="padding: 1em 0">
   - Number of pursuers: 1, 2, 3
   - Number of steps before heuristic: 0, 1, 2
-  - Game ends when evader reaches the goal state
-  - 50 Replications
+  - Evader is following a random walk indexed by goal and drift
+  - Game ends when evader reaches the goal state or has been caught
+  - 50 replications
   #+REVEAL_HTML: </div>
 
   #+REVEAL_HTML: <div class="column">
@@ -163,8 +167,16 @@
   - Estimate prior over evader behaviors using Nash process prior
   - Intelligent evader that adapts over time
   - Prioritization of capture zones
+  - Incorporate additional actions besides movement
 
 * References
+  bibliography:sources.bib
+
+  cite:vidal2002
+  cite:hespanha2000
+  cite:wang2016
+  cite:Nahin:2007
+  cite:Fang:2015
 
 * Final Slide
   :PROPERTIES:

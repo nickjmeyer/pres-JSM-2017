@@ -46,6 +46,14 @@
    margin-bottom: .6em;
 }
 
+.reveal .org-ref-bib-h1 {
+    display: none;
+}
+
+.reveal .org-ref-reference {
+    display: none;
+}
+
 .reveal p,
 .reveal table {
    margin-bottom: 1em;
@@ -54,6 +62,10 @@
 .reveal li {
     margin-bottom: .4em;
     font-size: 0.8em;
+}
+
+.reveal ul.org-ref-bib {
+    font-size: 0.75em;
 }
 
 .reveal ul ul,
